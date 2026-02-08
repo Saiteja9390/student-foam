@@ -5,12 +5,12 @@
          version="5.0">
 
     <servlet>
-        <servlet-name>userservlet</servlet-name>
-        <servlet-class>stu.userservlet</servlet-class>
+        <servlet-name>Userservlet</servlet-name>
+        <servlet-class>stu.Userservlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>userservlet</servlet-name>
+        <servlet-name>Userservlet</servlet-name>
         <url-pattern>/userservlet</url-pattern>
     </servlet-mapping>
 
