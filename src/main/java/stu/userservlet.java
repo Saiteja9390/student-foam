@@ -16,9 +16,7 @@ public class Userservlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        response.setContentType("text/html");
-        response.getWriter().println("<h2>UserServlet is working (GET)</h2>");
+        doPost(request, response); // 🔥 KEY LINE
     }
 
     @Override
@@ -31,7 +29,6 @@ public class Userservlet extends HttpServlet {
         int year = Integer.parseInt(request.getParameter("year"));
 
         try {
-            // ✅ get DB url from Render env variable
             String dbUrl = System.getenv("DATABASE_URL");
 
             Connection con = DriverManager.getConnection(dbUrl);
