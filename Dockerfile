@@ -11,7 +11,7 @@ RUN mvn clean package
 FROM eclipse-temurin:17-jdk
 
 WORKDIR /app
-COPY --from=build /app/target/studentfoam.war app.war
+COPY --from=build /app/target/studentfoam-0.0.1-SNAPSHOT.war app.war
 
 EXPOSE 8080
 
