@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Engineering Student Form</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+</head>
+<body>
+
+<h2>Engineering Student Registration</h2>
+
+<form action="userservlet" method="post" onsubmit="return validateForm()">
+    <label>Name:</label>
+    <input type="text" name="name" id="name">
+
+    <label>Email:</label>
+    <input type="email" name="email" id="email">
+
+    <label>Branch:</label>
+    <select name="branch">
+        <option>CSE</option>
+        <option>ECE</option>
+        <option>EEE</option>
+        <option>MECH</option>
+    </select>
+
+    <label>Year:</label>
+    <input type="number" name="year" min="1" max="4">
+
+    <input type="submit" value="Register">
+    <script type="text/javascript">
+    function validateForm() {
+        let name = document.getElementById("name").value;
+        let email = document.getElementById("email").value;
+
+        if (name === "" || email === "") {
+            alert("All fields are required");
+            return false;
+        }
+        return true;
+    }
+</script>
+</form>
+
+</body>
+</html>
