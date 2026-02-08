@@ -12,15 +12,16 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 
 public class Userservlet extends HttpServlet {
-	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-	        throws ServletException, IOException {
 
-	    response.setContentType("text/html");
-	    response.getWriter().println("<h2>UserServlet is working (GET)</h2>");
-	}
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
+        response.setContentType("text/html");
+        response.getWriter().println("<h2>UserServlet is working (GET)</h2>");
+    }
 
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -29,8 +30,11 @@ public class Userservlet extends HttpServlet {
         String branch = request.getParameter("branch");
         int year = Integer.parseInt(request.getParameter("year"));
 
-        try (Connection con = DriverManager.getConnection(
-                System.getenv("postgresql://sample_4ly3_user:9fuwvu9p4v9QewqblhatanvQkQGAE6B9@dpg-d63nej94tr6s73a04jkg-a.singapore-postgres.render.com/sample_4ly3"))) {
+        try {
+            // ✅ get DB url from Render env variable
+            String dbUrl = System.getenv("DATABASE_URL");
+
+            Connection con = DriverManager.getConnection(dbUrl);
 
             String sql = "INSERT INTO students(name,email,branch,year) VALUES (?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(sql);
@@ -46,7 +50,11 @@ public class Userservlet extends HttpServlet {
             PrintWriter out = response.getWriter();
             out.println("<h2>Student Registered Successfully</h2>");
 
+            ps.close();
+            con.close();
+
         } catch (Exception e) {
+            e.printStackTrace();
             throw new ServletException(e);
         }
     }
