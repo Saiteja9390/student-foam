@@ -12,6 +12,14 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 
 public class Userservlet extends HttpServlet {
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	        throws ServletException, IOException {
+
+	    response.setContentType("text/html");
+	    response.getWriter().println("<h2>UserServlet is working (GET)</h2>");
+	}
+
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
