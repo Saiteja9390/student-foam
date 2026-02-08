@@ -1,18 +1,12 @@
-# ---------- BUILD STAGE ----------
-FROM maven:3.9.9-eclipse-temurin-17 AS build
+# Use official Tomcat image with Java 17
+FROM tomcat:10.1-jdk17
 
-WORKDIR /app
-COPY pom.xml .
-COPY src ./src
+# Remove default apps
+RUN rm -rf /usr/local/tomcat/webapps/*
 
-RUN mvn clean package
-
-# ---------- RUN STAGE ----------
-FROM eclipse-temurin:17-jdk
-
-WORKDIR /app
-COPY --from=build /app/target/studentfoam-0.0.1-SNAPSHOT.war app.war
+# Copy your WAR as ROOT app
+COPY target/studentfoam-0.0.1-SNAPSHOT.war /usr/local/tomcat/webapps/ROOT.war
 
 EXPOSE 8080
 
-CMD ["java", "-jar", "app.war"]
+CMD ["catalina.sh", "run"]
